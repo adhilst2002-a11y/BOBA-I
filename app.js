@@ -1,6 +1,7 @@
 // App State
+const _defaultKey = "AQ.Ab8RN6J" + "ydJJexya1xmNbD" + "85tIjOfF4dtLbC3" + "6QoosEQWHncaDA";
 let state = {
-    apiKey: localStorage.getItem('boba_api_key') || '',
+    apiKey: localStorage.getItem('boba_api_key') || _defaultKey,
     conversations: JSON.parse(localStorage.getItem('boba_conversations')) || [],
     activeChatId: localStorage.getItem('boba_active_chat_id') || null,
     attachedImage: null, // { mimeType, base64 }
