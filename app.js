@@ -434,6 +434,7 @@ function appendMessageUI(role, parts, imageAttachment) {
     if (!isUser) {
         processCodeBlocks(messageItem);
     }
+    return messageItem;
 }
 
 function processCodeBlocks(container) {
@@ -697,8 +698,12 @@ async function sendMessage() {
 
         // Update Chat UI
         removeTypingIndicator();
-        appendMessageUI('model', botMessageObj.parts);
-        scrollToBottom();
+        const botMsgEl = appendMessageUI('model', botMessageObj.parts);
+        if (botMsgEl) {
+            botMsgEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            scrollToBottom();
+        }
 
         // Auto-update default title if it's the first exchange
         if (chat.title === 'New Brew' && chat.messages.length === 2) {
@@ -711,8 +716,12 @@ async function sendMessage() {
     } catch (err) {
         removeTypingIndicator();
         console.error(err);
-        appendMessageUI('model', [{ text: `⚠️ **Error querying Gemini API:** ${err.message || 'Something went wrong. Check console logs or your API Key settings.'}` }]);
-        scrollToBottom();
+        const botMsgEl = appendMessageUI('model', [{ text: `⚠️ **Error querying Gemini API:** ${err.message || 'Something went wrong. Check console logs or your API Key settings.'}` }]);
+        if (botMsgEl) {
+            botMsgEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            scrollToBottom();
+        }
     }
 }
 
