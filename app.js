@@ -698,12 +698,7 @@ async function sendMessage() {
 
         // Update Chat UI
         removeTypingIndicator();
-        const botMsgEl = appendMessageUI('model', botMessageObj.parts);
-        if (botMsgEl) {
-            botMsgEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        } else {
-            scrollToBottom();
-        }
+        appendMessageUI('model', botMessageObj.parts);
 
         // Auto-update default title if it's the first exchange
         if (chat.title === 'New Brew' && chat.messages.length === 2) {
@@ -716,12 +711,7 @@ async function sendMessage() {
     } catch (err) {
         removeTypingIndicator();
         console.error(err);
-        const botMsgEl = appendMessageUI('model', [{ text: `⚠️ **Error querying Gemini API:** ${err.message || 'Something went wrong. Check console logs or your API Key settings.'}` }]);
-        if (botMsgEl) {
-            botMsgEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        } else {
-            scrollToBottom();
-        }
+        appendMessageUI('model', [{ text: `⚠️ **Error querying Gemini API:** ${err.message || 'Something went wrong. Check console logs or your API Key settings.'}` }]);
     }
 }
 
